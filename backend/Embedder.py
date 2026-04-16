@@ -7,7 +7,7 @@ load_dotenv()
 openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 pinecone_client = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 
-index = pinecone_client.Index("new-index", dimension=1536, metric="cosine", environment="us-east-1")
+index = pinecone_client.Index("new-index")
 
 def embed_chunks(chunks: list[str], model: str = "text-embedding-3-small") -> list[list[float]]:
     resp = openai_client.embeddings.create(model=model, input=chunks)

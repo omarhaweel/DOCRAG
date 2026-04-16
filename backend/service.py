@@ -10,13 +10,18 @@ import os
 from contextlib import asynccontextmanager
 
 
-
-app = FastAPI(title="RAG Ask API")
-
-# replace the hardcoded allow_origins with:
 ALLOWED_ORIGINS = os.environ.get(
     "ALLOWED_ORIGINS", "http://localhost:5173"
 ).split(",")
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    embed_new_files(load_pdf_files())
+    yield
+
+
+app = FastAPI(title="RAG Ask API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -31,8 +36,6 @@ class AskRequest(BaseModel):
     question: str
 
 
-
-
 @app.post("/ask")
 async def ask(body: AskRequest):
     q = body.question.strip()
@@ -42,12 +45,8 @@ async def ask(body: AskRequest):
     return {"answer": answer}
 
 
-# sync friendly way to load and embed PDF files at startup 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Load and embed PDF files at startup
-    embed_new_files(load_pdf_files())
-    yield
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0", port=8000)

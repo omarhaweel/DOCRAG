@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_pinecone import PineconeVectorStore
-from langchain.chains import RetrievalQA
+from langchain_classic.chains import RetrievalQA
 from chunker import chunk_pdfs
 from Embedder import upsert_embeddings
 from pathlib import Path

@@ -4,6 +4,7 @@ python-dotenv
 PyPDF2
 tiktoken>=0.7.0
 langchain
+langchain-classic
 langchain-openai
 langchain-pinecone
 langchain-core

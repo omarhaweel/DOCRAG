@@ -1,3 +1,4 @@
+# This is a workflow for CI checks on the `dev` branch. It runs on pushes and pull requests to `dev`.
 name: CI — dev
 
 on:

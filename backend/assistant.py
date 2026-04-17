@@ -11,8 +11,6 @@ from pathlib import Path
 DATA_FOLDER = Path("./documnets")
 PDF_GLOB = "*.pdf"
 ALREADY_EMBEDDED_FILE = Path("already_embedded.txt")
-# --- IGNORE ---
-
 
 def load_pdf_files(data_folder: Path = DATA_FOLDER) -> list[str]:
     if not data_folder.exists():
